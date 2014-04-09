@@ -7,7 +7,7 @@
 
 import random
 
-from .util import dot
+from .util import dot, scalar_multiply, vector_add
 
 class SimpleSolver:
     """Solver based on Andrew Ng's Simplified SMO.
@@ -40,7 +40,7 @@ class SimpleSolver:
     def solve(self):
         """Solve the SVM problem.
 
-        :return: a tuple of (alphas, offset)
+        :return: a tuple of (weights, offset)
         """
         unchanged_iter = 0
         while unchanged_iter < self.max_iter:
@@ -65,7 +65,16 @@ class SimpleSolver:
             else:
                 unchanged_iter += 1
 
-        return self.alphas, self.offset
+        return self.weight_vector(), self.offset
+
+    def weight_vector(self):
+        """Compute the weight vector for the primal problem."""
+        total = [0. for ii in range(len(self.points[0]))]
+        for ii in range(self.size):
+            total = vector_add(total,
+                    scalar_multiply(self.points[ii],
+                        self.alphas[ii] * self.values[ii]))
+        return total
 
     def classify(self, point):
         """Return the current classification of a point."""
