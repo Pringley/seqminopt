@@ -132,7 +132,7 @@ class SimpleSolver:
         new_alpha_jj = min(new_alpha_jj, upper)
 
         # If alpha_jj has not changed (within tolerance), skip the rest
-        if abs(alpha_jj - new_alpha_jj) < 1e-5:
+        if abs(alpha_jj - new_alpha_jj) < self.tol:
             return False
 
         new_alpha_ii = alpha_ii + val_ii * val_jj * (alpha_jj - new_alpha_jj)
@@ -144,9 +144,9 @@ class SimpleSolver:
         offset2 = (self.offset - error_jj
                 - val_ii * (new_alpha_ii - alpha_ii) * dot(pt_ii, pt_jj)
                 - val_jj * (new_alpha_jj - alpha_jj) * dot(pt_jj, pt_jj))
-        if 0 < alpha_ii < self.offset:
+        if alpha_ii < self.tol or alpha_ii < self.tradeoff - self.tol:
             new_offset = offset1
-        elif 0 < alpha_jj < self.offset:
+        elif alpha_jj < self.tol or alpha_jj < self.tradeoff - self.tol:
             new_offset = offset2
         else:
             new_offset = (offset1 + offset2) / 2.
