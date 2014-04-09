@@ -79,8 +79,8 @@ class SimpleSolver:
     def classify(self, point):
         """Return the current classification of a point."""
         return sum(self.alphas[ii] * self.values[ii]
-                * dot(self.points[ii], point) + self.offset
-                for ii in range(self.size))
+                * dot(self.points[ii], point)
+                for ii in range(self.size)) + self.offset
 
     def error(self, index):
         """Return the current classification error of a point."""
