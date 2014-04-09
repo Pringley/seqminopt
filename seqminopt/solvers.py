@@ -45,35 +45,27 @@ class SimpleSolver:
         unchanged_iter = 0
         while unchanged_iter < self.max_iter:
 
-            # Select the next pair to optimize.
-            try:
-                ii, jj = self.next_pair()
-            except StopIteration:
-                break
+            changes = 0
 
-            if self.update(ii, jj):
+            # Choose ii by looking for KKT violations.
+            for ii in range(self.size):
+                if self.has_violation(ii):
+
+                    # Choose corresponding jj randomly.
+                    jj = ii
+                    while jj == ii:
+                        jj = random.randint(0, self.size - 1)
+
+                    # Update alpha_ii, alpha_jj, and offset
+                    if self.update(ii, jj):
+                        changes += 1
+
+            if changes:
                 unchanged_iter = 0
             else:
                 unchanged_iter += 1
 
         return self.alphas, self.offset
-
-    def next_pair(self):
-        """Choose an ii, jj pair to optimize."""
-
-        # Choose ii by looking for KKT violations.
-        for ii in range(self.size):
-            if self.has_violation(ii):
-                break
-        else:
-            raise StopIteration("No KKT violations found!")
-
-        # Choose corresponding jj randomly.
-        jj = ii
-        while jj == ii:
-            jj = random.randint(0, self.size - 1)
-
-        return (ii, jj)
 
     def classify(self, point):
         """Return the current classification of a point."""
