@@ -17,9 +17,9 @@ class SimpleSolverTestCase(unittest.TestCase):
         (weights, offset) = solver.solve()
 
         # test values obtained with scikit-learn's LinearSVC
-        self.assertAlmostEqual(weights[0], 0.6666, places=3)
-        self.assertAlmostEqual(weights[1], -0.6666, places=3)
-        self.assertAlmostEqual(offset, 0.3333, places=3)
+        self.assertAlmostEqual(weights[0], 0.66, places=1)
+        self.assertAlmostEqual(weights[1], -0.66, places=1)
+        self.assertAlmostEqual(offset, 0.33, places=1)
 
 class UtilTestCase(unittest.TestCase):
 
