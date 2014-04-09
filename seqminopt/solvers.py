@@ -131,7 +131,7 @@ class SimpleSolver:
         new_alpha_jj = min(new_alpha_jj, upper)
 
         # If alpha_jj has not changed (within tolerance), skip the rest
-        if abs(alpha_jj - new_alpha_jj) < 10e-5:
+        if abs(alpha_jj - new_alpha_jj) < 1e-5:
             return False
 
         new_alpha_ii = alpha_ii + val_ii * val_jj * (alpha_jj - new_alpha_jj)
