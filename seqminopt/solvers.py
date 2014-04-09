@@ -34,8 +34,8 @@ class SimpleSolver:
         self.max_iter = max_iter if max_iter is not None else self.size * self.size
 
         # Initialize variables to optimize
-        self.alphas = [0 for _ in range(self.size)]
-        self.offset = 0
+        self.alphas = [0. for _ in range(self.size)]
+        self.offset = 0.
 
     def solve(self):
         """Solve the SVM problem.
