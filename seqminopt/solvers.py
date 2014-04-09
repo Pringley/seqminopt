@@ -142,7 +142,7 @@ class SimpleSolver:
                 - val_ii * (new_alpha_ii - alpha_ii) * dot(pt_ii, pt_ii)
                 - val_jj * (new_alpha_jj - alpha_jj) * dot(pt_ii, pt_jj))
         offset2 = (self.offset - error_jj
-                - val_ii * (new_alpha_ii - alpha_jj) * dot(pt_ii, pt_jj)
+                - val_ii * (new_alpha_ii - alpha_ii) * dot(pt_ii, pt_jj)
                 - val_jj * (new_alpha_jj - alpha_jj) * dot(pt_jj, pt_jj))
         if 0 < alpha_ii < self.offset:
             new_offset = offset1
