@@ -102,11 +102,11 @@ class SimpleSolver:
 
         # Compute bounds for new alpha_jj such that 0 <= alpha_jj <= tradeoff
         if val_ii == val_jj:
-            lower = max(0, alpha_jj - alpha_ii)
-            upper = min(self.tradeoff, self.tradeoff + alpha_jj - alpha_ii)
-        else:
             lower = max(0, alpha_ii + alpha_jj - self.tradeoff)
             upper = min(self.tradeoff, alpha_ii + alpha_jj)
+        else:
+            lower = max(0, alpha_jj - alpha_ii)
+            upper = min(self.tradeoff, self.tradeoff + alpha_jj - alpha_ii)
 
         # If the bounds are equal, skip this update
         if lower == upper:
