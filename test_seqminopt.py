@@ -1,21 +1,25 @@
 import unittest
-import seqminopt
 
+import seqminopt
 from seqminopt.solvers import SimpleSolver
 from seqminopt.util import dot
 
 PARAMS = {
-    'points': [ [3, 2], [2, 1], [1, 3], [5, 7], [5, 9], [4, 1] ],
-    'values': [1, 1, -1, -1, -1, 1],
-    'tradeoff': 10.0
+    'points': [ [3., 2.], [2., 1.], [1., 3.], [5., 7.], [5., 9.], [4., 1.] ],
+    'values': [1., 1., -1., -1., -1., 1.],
+    'tradeoff': 1.
 }
 
 class SimpleSolverTestCase(unittest.TestCase):
 
     def test_solve(self):
         solver = SimpleSolver(**PARAMS)
-        (alphas, offset) = solver.solve()
-        print(alphas, offset)
+        (weights, offset) = solver.solve()
+
+        # test values obtained with scikit-learn's LinearSVC
+        self.assertAlmostEqual(weights[0], 0.6666, places=3)
+        self.assertAlmostEqual(weights[1], -0.6666, places=3)
+        self.assertAlmostEqual(offset, 0.3333, places=3)
 
 class UtilTestCase(unittest.TestCase):
 
